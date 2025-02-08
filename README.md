@@ -4,6 +4,13 @@ A text-to-speech model generating natural Nigerian-accented English speech. Buil
 
 ## Quick Start
 
+There are two ways to get started:
+
+1. **Interactive Notebooks**: Try our ready-to-use Colab notebooks:
+   - [Core Features Tutorial](https://colab.research.google.com/drive/11zMUrfBiLa1gEflAKp8lliSOTNQ-X_nU?usp=sharing)
+   - Additional Examples: [Simple news reader](https://colab.research.google.com/drive/1SsXV08kly1TUJVM_NFpKqQWOZ1gUZpGe?usp=sharing) 
+
+2. **Run the notebook code in your own environment** (Requires GPU access):
 ```python
 # clone the YarnGPT repo to get access to the `audiotokenizer`
 !git clone https://github.com/saheedniyi02/yarngpt.git
@@ -89,8 +96,13 @@ torchaudio.save(f"audio.wav", audio, sample_rate=24000)
 - Male: jude, tayo, umar, osagie, onye, emma
 
 ## Examples
+### Notebooks
+Check out our demo notebook and run in Colab
+1. [Prompt YarnGPT notebook](https://colab.research.google.com/drive/11zMUrfBiLa1gEflAKp8lliSOTNQ-X_nU?usp=sharing)
+2. [Simple news reader](https://colab.research.google.com/drive/1SsXV08kly1TUJVM_NFpKqQWOZ1gUZpGe?usp=sharing)
 
-Check out our [demo notebook](link-to-notebook) or listen to [sample outputs](https://huggingface.co/saheedniyi/YarnGPT/tree/main/audio).
+### Sample Outputs
+Listen to [sample outputs](https://huggingface.co/saheedniyi/YarnGPT/tree/main/audio).
 
 ## Model Details
 
