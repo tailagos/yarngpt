@@ -1,3 +1,2 @@
-# MANIFEST.in
-include yarngpt/*.py
-recursive-include yarngpt *
+include README.md
+recursive-include yarngpt *.py

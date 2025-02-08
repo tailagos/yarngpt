@@ -30,6 +30,6 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta:__legacy__"
 
 [tool.setuptools.packages.find]
-where = ["yarngpt"]
-include = ["yarngpt/*"]  
+where = ["."]
+include = ["yarngpt", "yarngpt.*"] 
 exclude = ["notebooks*", "examples*", "default_speakers*", "default_speakers_local*"]
