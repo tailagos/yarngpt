@@ -25,8 +25,11 @@ Homepage = "https://huggingface.co/saheedniyi/YarnGPT"
 Repository = "https://github.com/saheedniyi02/yarngpt"
 Issues = "https://github.com/saheedniyi02/yarngpt/issues"
 
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta:__legacy__"
 
 [tool.setuptools.packages.find]
 where = ["yarngpt"]
-include = ["yarngpt"]
+include = ["yarngpt/*"]  
 exclude = ["notebooks*", "examples*", "default_speakers*", "default_speakers_local*"]
