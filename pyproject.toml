@@ -27,5 +27,5 @@ Issues = "https://github.com/saheedniyi02/yarngpt/issues"
 
 
 [tool.setuptools.packages.find]
-include = ["yarngpt*"]
+include = ["yarngpt"]
 exclude = ["notebooks*", "default_speakers*", "default_speakers_local*", "examples*"]
