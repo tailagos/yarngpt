@@ -89,8 +89,13 @@ torchaudio.save(f"audio.wav", audio, sample_rate=24000)
 - Male: jude, tayo, umar, osagie, onye, emma
 
 ## Examples
+### Notebooks
+Check out our demo notebook and run in Colab
+1. [Prompt YarnGPT notebook](https://colab.research.google.com/drive/11zMUrfBiLa1gEflAKp8lliSOTNQ-X_nU?usp=sharing)
+2. [Simple news reader](https://colab.research.google.com/drive/1SsXV08kly1TUJVM_NFpKqQWOZ1gUZpGe?usp=sharing)
 
-Check out our [demo notebook](link-to-notebook) or listen to [sample outputs](https://huggingface.co/saheedniyi/YarnGPT/tree/main/audio).
+### Sample Outputs
+Listen to [sample outputs](https://huggingface.co/saheedniyi/YarnGPT/tree/main/audio).
 
 ## Model Details
 
