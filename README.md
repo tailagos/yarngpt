@@ -4,6 +4,13 @@ A text-to-speech model generating natural Nigerian-accented English speech. Buil
 
 ## Quick Start
 
+There are two ways to get started:
+
+1. **Interactive Notebooks**: Try our ready-to-use Colab notebooks:
+   - [Core Features Tutorial](https://colab.research.google.com/drive/11zMUrfBiLa1gEflAKp8lliSOTNQ-X_nU?usp=sharing)
+   - Additional Examples: [Simple news reader](https://colab.research.google.com/drive/1SsXV08kly1TUJVM_NFpKqQWOZ1gUZpGe?usp=sharing) 
+
+2. **Run the notebook code in your own environment** (Requires GPU access):
 ```python
 # clone the YarnGPT repo to get access to the `audiotokenizer`
 !git clone https://github.com/saheedniyi02/yarngpt.git
