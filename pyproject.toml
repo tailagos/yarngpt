@@ -13,6 +13,7 @@ dependencies = [
     "uroman>=1.3.1.1",
 ]
 
+
 # Author details
 authors = [
     { name = "Saheed Ayanniyi", email = "your.email@example.com" }
@@ -23,3 +24,8 @@ authors = [
 Homepage = "https://huggingface.co/saheedniyi/YarnGPT"
 Repository = "https://github.com/saheedniyi02/yarngpt"
 Issues = "https://github.com/saheedniyi02/yarngpt/issues"
+
+
+[tool.setuptools.packages.find]
+include = ["yarngpt*"]
+exclude = ["notebooks*", "default_speakers*", "default_speakers_local*", "examples*"]
