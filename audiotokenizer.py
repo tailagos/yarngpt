@@ -277,7 +277,7 @@ class AudioTokenizerV2(AudioTokenizer):
         text=text.replace(pair[0],pair[-1])
       return text 
 
-    def quantize_wavtokenizer(path):
+    def quantize_wavtokenizer(self, path):
         audio_data, sample_rate = torchaudio.load(path)
         audio_data=audio_data.squeeze()
         audio = resample(audio_data, sample_rate, 24000).to(device)
@@ -288,8 +288,8 @@ class AudioTokenizerV2(AudioTokenizer):
         for code in codes[0].tolist():
             res+=f"<|{code}|>"
         
-    def load_asr_prompt(audio_path):
-        codes=quantize_wavtokenizer(audio_path)
+    def load_asr_prompt(self,audio_path):
+        codes=self.quantize_wavtokenizer(audio_path)
         prompt = self.asr_prompt.format(
           bos=self.bos,
           code_start=self.special_tokens['code_start'],
