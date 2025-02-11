@@ -304,6 +304,6 @@ class AudioTokenizerV2(AudioTokenizer):
           code_start=self.special_tokens['code_start'],
           codes=codes,
           code_end=self.special_tokens['code_end'],
-          asr=self.special_tokens[asr],
+          asr=self.special_tokens["asr"],
         )
         return prompt
