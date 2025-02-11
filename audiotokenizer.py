@@ -210,7 +210,13 @@ class AudioTokenizerV2(AudioTokenizer):
             "hausa_female1", "hausa_female2", "igbo_female1", "igbo_female2", "yoruba_female1", "yoruba_female2"
         ]
         self.speakers_eng = ["idera","emma","onye","jude","osagie","tayo","zainab","joke","regina","remi","umar","chinenye"]
-
+        self.changed_tokens=[('<|1836|>', '<|453|><|453|>'),
+                             ('<|1837|>', '<|1836|><|1836|>'),
+                             ('<|1838|>', '<|1837|><|1837|>'),
+                             ('<|1840|>', '<|244|><|167|>'),
+                             ('<|1841|>', '<|235|><|219|>'),
+                             ('<|1844|>', '<|453|><|244|>'),
+                             ('<|1845|>', '<|1838|><|1838|>')]
 
     def process_text(self, text: str):
         text = self.uroman.romanize_string(text)
@@ -264,6 +270,10 @@ class AudioTokenizerV2(AudioTokenizer):
         prompt += self.create_audio_prompt(speaker["words"])
 
         return prompt
-    
+    def replace_tokens(text):
+      for pair in self.changed_tokens:
+        text=text.replace(pair[0],pair[-1])
+      return text 
+        
     def load_asr_prompt(audio_path):
       pass
