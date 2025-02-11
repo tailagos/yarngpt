@@ -233,7 +233,7 @@ class AudioTokenizerV2(AudioTokenizer):
         return self.load_speaker(speaker_path)
 
     def create_prompt(self,text,lang,speaker_name=None):
-        assert lang in ["hausa","igbo","yoruba","english"], f"Invalid language: {lang}, language must be one of ['hausa','igbo','yoruba']"
+        assert lang in ["hausa","igbo","yoruba","english"], f"Invalid language: {lang}, language must be one of ['hausa','igbo','yoruba','english']"
         #if no speaker
         dir=self.DEFAULT_SPEAKERS_DIR_LOCAL
         if speaker_name is None:
