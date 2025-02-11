@@ -185,6 +185,7 @@ class AudioTokenizerV2(AudioTokenizer):
     def __init__(self,tokenizer_path,wav_tokenizer_model_path,wav_tokenizer_config_path,):
         super().__init__(tokenizer_path, wav_tokenizer_model_path, wav_tokenizer_config_path)
         self.text_prompt = "{bos}\n{text_start}{words}{text_end}\n{lang}\n{audio_start}\n"
+        self.asr_prompt="{bos}\n{text_start}{words}{text_end}\n{lang}\n{audio_start}\n"
         self.special_tokens = {
             "audio_code": "<|{}|>",
             "text_start": "<|text_start|>",
@@ -274,6 +275,15 @@ class AudioTokenizerV2(AudioTokenizer):
       for pair in self.changed_tokens:
         text=text.replace(pair[0],pair[-1])
       return text 
+
+    def quantize_wavtokenizer(path, quantizer=wavtokenizer):
+        audio_data, sample_rate = torchaudio.load(path)
+        audio_data=audio_data.squeeze()
+        audio = resample(audio_data, sample_rate, 24000).to(device)
+        bandwidth_id = torch.tensor([0]).to(device)
+        _, codes = quantizer.encode_infer(audio, bandwidth_id=bandwidth_id)
+        codes = codes.squeeze(1).to(device)#+last_text_token
+        return codes[0].tolist()
         
     def load_asr_prompt(audio_path):
       pass
