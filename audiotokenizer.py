@@ -296,6 +296,7 @@ class AudioTokenizerV2(AudioTokenizer):
         res=""
         for code in codes[0].tolist():
             res+=f"<|{code}|>"
+        return res
         
     def load_asr_prompt(self,audio_path):
         codes=self.quantize_wavtokenizer(audio_path)
