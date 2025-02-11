@@ -308,3 +308,10 @@ class AudioTokenizerV2(AudioTokenizer):
           asr=self.special_tokens["asr"],
         )
         return prompt
+
+    def get_asr_results(self,output):
+        res=""
+        for text in self.tokenizer.decode(output[0]).split("<|text_start|>")[-1].split("<|text_end|>")[0].split("\n"):
+            res+=text.split("<|word_start|>")[-1].split("<|word_end|>")[0]
+            res+=" "
+        return res.strip()
