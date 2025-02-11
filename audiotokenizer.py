@@ -245,7 +245,9 @@ class AudioTokenizerV2(AudioTokenizer):
                 speaker_name=random.choice(["yoruba_male2","yoruba_female1","yoruba_female2"])
             else:
                 speaker_name=random.choice(self.speakers_eng)
-                dir=self.DEFAULT_SPEAKERS_ENG
+                
+        if lang=="english":
+            dir=self.DEFAULT_SPEAKERS_ENG
         speaker=self.load_default_speaker(speaker_name,dir)
         input_words = self.process_text(speaker["text"]) +  self.process_text(text)
         #input_words = process_text(speaker["text"]) + input_words
