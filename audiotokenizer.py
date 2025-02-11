@@ -145,6 +145,96 @@ class AudioTokenizerForLocal(AudioTokenizer):
         ]
 
 
+
+class AudioTokenizerV2(AudioTokenizer):
+
+    def __init__(self,tokenizer_path,wav_tokenizer_model_path,wav_tokenizer_config_path,):
+        super().__init__(tokenizer_path, wav_tokenizer_model_path, wav_tokenizer_config_path)
+        self.text_prompt = "{bos}\n{text_start}{words}{text_end}\n{lang}\n{audio_start}\n"
+        self.special_tokens = {
+            "audio_code": "<|{}|>",
+            "text_start": "<|text_start|>",
+            "text_end": "<|text_end|>",
+            "audio_start": "<|audio_start|>",
+            "audio_end": "<|audio_end|>",
+            "word_start": "<|word_start|>",
+            "word_end": "<|word_end|>",
+            "time": "<|t_{:.2f}|>",
+            "code_start": "<|code_start|>",
+            "code_end": "<|code_end|>",
+            "text_sep": "<|text_sep|>",
+            "hausa":"<|hausa|>",
+            "igbo":"<|igbo|>",
+            "yoruba":"<|yoruba|>",
+            "english":"<|english|>"#<|english|>
+        }
+        self.uroman = ur.Uroman()
+        self.DEFAULT_SPEAKERS_DIR_LOCAL = os.path.join(self.BASE_DIR, "default_speakers_local")
+        self.DEFAULT_SPEAKERS_ENG = os.path.join(self.BASE_DIR, "default_speakers")
+        self.speakers_local = [
+            "hausa_male1", "hausa_male2","yoruba_male1", "yoruba_male2","igbo_male2" #"igbo_male1", "igbo_male2",
+            "hausa_female1", "hausa_female2", "igbo_female1", "igbo_female2", "yoruba_female1", "yoruba_female2"
+        ]
+        self.speakers_eng = ["idera","emma","onye","jude","osagie","tayo","zainab","joke","regina","remi","umar","chinenye"]
+
+
+    def process_text(self, text: str):
+        text = self.uroman.romanize_string(text)
+        text = re.sub(r'\d+(\.\d+)?', lambda x: self.lec.number_to_words(x.group()), text.lower())
+        text = re.sub(r'[-_/,\.\\]', ' ', text)
+        text = re.sub(r'[^a-z\s]', '', text)
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text.split()
+
+    def get_speaker_path(self,speaker_name,dir):
+        return os.path.join(dir, f"{speaker_name}.json")
+
+    def load_speaker(self, path: str):
+        with open(path, "r") as f:
+            return json.load(f)
+
+    def load_default_speaker(self, name: str,dir: str):
+        name = name.lower().strip()
+        speaker_path=self.get_speaker_path(name,dir)
+        return self.load_speaker(speaker_path)
+
+    def create_prompt(self,text,lang,speaker_name=None):
+        assert lang in ["hausa","igbo","yoruba","english"], f"Invalid language: {lang}, language must be one of ['hausa','igbo','yoruba']"
+        #if no speaker
+        dir=self.DEFAULT_SPEAKERS_DIR_LOCAL
+        if speaker_name is None:
+            if lang=="hausa":
+                speaker_name=random.choice(["hausa_male1","hausa_male2","hausa_female1","hausa_female2"])
+            elif lang=="igbo":
+                speaker_name=random.choice(["igbo_female1","igbo_female2","igbo_male2"])#"igbo_male1"])
+            elif lang=="yoruba":
+                speaker_name=random.choice(["yoruba_male2","yoruba_female1","yoruba_female2"])
+            else:
+                speaker_name=random.choice(self.speakers_eng)
+                dir=self.DEFAULT_SPEAKERS_ENG
+        speaker=self.load_default_speaker(speaker_name,dir)
+        input_words = self.process_text(speaker["text"]) +  self.process_text(text)
+        #input_words = process_text(speaker["text"]) + input_words
+
+        inputs_words_strings = f"{self.special_tokens['text_sep']}".join([i.strip() for i in input_words])
+        prompt = self.text_prompt.format(
+          bos=self.bos,
+          text_start=self.special_tokens['text_start'],
+          words=inputs_words_strings,
+          text_end=self.special_tokens['text_end'],
+          lang=self.special_tokens[lang],
+          audio_start=self.special_tokens['audio_start']
+      )
+        prompt += self.create_audio_prompt(speaker["words"])
+
+        return prompt
+    
+    def load_asr_prompt(audio_path):
+      pass
+
+  
+
+
     def process_text(self, text: str):
         text = self.uroman.romanize_string(text)
         text = re.sub(r'\d+(\.\d+)?', lambda x: self.lec.number_to_words(x.group()), text.lower())
