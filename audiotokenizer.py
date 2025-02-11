@@ -9,6 +9,7 @@ import numpy as np
 import torchaudio
 from transformers import AutoTokenizer
 from outetts.wav_tokenizer.decoder import WavTokenizer
+from outetts.wav_tokenizer.encoder.utils import convert_audio
 
 class AudioTokenizer:
 
