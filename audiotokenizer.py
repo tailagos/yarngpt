@@ -209,7 +209,7 @@ class AudioTokenizerV2(AudioTokenizer):
             "hausa_male1", "hausa_male2","yoruba_male1", "yoruba_male2","igbo_male2" #"igbo_male1", "igbo_male2",
             "hausa_female1", "hausa_female2", "igbo_female1", "igbo_female2", "yoruba_female1", "yoruba_female2"
         ]
-        self.speakers_eng = ["idera","emma","onye","jude","osagie","tayo","zainab","joke","regina","remi","umar","chinenye"]
+        self.speakers_eng = ["idera","emma","onye","jude","osagie","tayo","zainab","joke","regina","remi","umar","chinenye","saheed"]
         self.changed_tokens=[('<|1836|>', '<|453|><|453|>'),
                              ('<|1837|>', '<|1836|><|1836|>'),
                              ('<|1838|>', '<|1837|><|1837|>'),
