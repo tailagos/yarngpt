@@ -277,10 +277,18 @@ class AudioTokenizerV2(AudioTokenizer):
         text=text.replace(pair[0],pair[-1])
       return text 
 
+    def resample(self,audio: np.ndarray, sr: int, target_sr: int):
+        audio = audio.to(dtype=torch.float32)
+        #.clone().detach()
+        audio = audio.unsqueeze(0)
+        # 1 as last arg corresponds to mono audio
+        resampled = convert_audio(audio, sr, target_sr, 1)
+        return resampled.to(device)
+
     def quantize_wavtokenizer(self, path):
         audio_data, sample_rate = torchaudio.load(path)
         audio_data=audio_data.squeeze()
-        audio = resample(audio_data, sample_rate, 24000).to(device)
+        audio = self.resample(audio_data, sample_rate, 24000).to(device)
         bandwidth_id = torch.tensor([0]).to(device)
         _, codes = self.wavtokenizer.encode_infer(audio, bandwidth_id=bandwidth_id)
         codes = codes.squeeze(1).to(device)#+last_text_token
