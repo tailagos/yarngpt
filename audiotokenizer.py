@@ -290,6 +290,8 @@ class AudioTokenizerV2(AudioTokenizer):
         audio_data, sample_rate = torchaudio.load(path)
         audio_data=audio_data.squeeze()
         audio = self.resample(audio_data, sample_rate, 24000).to(self.device)
+        if audio.ndim==3:
+            audio=audio.squeeze(1)
         bandwidth_id = torch.tensor([0]).to(self.device )
         _, codes = self.wavtokenizer.encode_infer(audio, bandwidth_id=bandwidth_id)
         codes = codes.squeeze(1).to(self.device)#+last_text_token
